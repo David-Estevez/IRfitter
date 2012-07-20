@@ -5,6 +5,6 @@
 function J = cost(X, y,  theta)
 [m n] = size(X);
 
-J = 1 / (2*m) * sum( ( h(X, theta) - y ).^2);
+J = 1 / (2*m) * ( h(X, theta) - y )'*( h(X, theta) - y );
 
 endfunction

@@ -14,46 +14,86 @@
 
 function theta = IRfitter( file , algorithm )
 
-%%Clears system
+%Prepare system & load data
+%=====================================================================
+%%Clear system
 close all; clc
 
-%%Loads data
+%%Load data
 fprintf("Loading data... \n");
 [X y m] = loadData( file );
 
-%%Plots data (for 1 variable version)
-n = size(X, 2);
+%Plot raw data
+fprintf("Plotting data ...\n");
+figure (1);
+plot( X, y, 'rx', 'MarkerSize', 10);
+xlabel('X');
+ylabel('y');
+legend('Training data', 'Fitted expression');
+title('Raw data');
 
-if n == 1
-	fprintf("Plotting data ...\n");
-	figure (1);
-	plot( X, y, 'rx', 'MarkerSize', 10);
-	xlabel('X');
-	ylabel('y');
-endif 
+%Transform the data
+X=log(X);
+y=log(y);
+
+%Plot transformed data
+fprintf("Plotting data ...\n");
+figure (2);
+plot( X, y, 'rx', 'MarkerSize', 10);
+xlabel('ln X');
+ylabel('ln y');
+legend('Training data', 'Linear regression');
+title('Transformed data');
+
+%Add one column of ones
+X = [ ones( m, 1) X];
 
 
+%Algorithm selection:
+%================================================================
 if algorithm == 0
-	%Applies gradientDescend
-	theta = [1; 1]; %Initial theta guess
-	alpha = 0.0001;	%Learning rate
-	iterations = 100000; %number of iterations
+	%Gradient Descend algorithm
+	%========================================================
+	%Parameters:
+	theta =  zeros(2,1); %Initial theta guess
+	alpha = 0.001;	%Learning rate
+	iterations = 60000; %number of iterations
 
+	%Apply gradiend descend:
 	theta = gradientDescend( X, y , theta, alpha, iterations);
 endif
 
-%%Plots cost vs iteration (for feedback) 
-%% --> If this can be made each iteration it would be better
 
-%%Plots prediction in first picture & returns theta vector
-if n == 1
-	x = [ 10:0.1:100];
-	fprintf("Plotting adjusted function ...\n");
-	figure (1);
-	hold on;
-	plot( x, h(x, theta), 'b-');
-	hold off;
-	
-endif 
+%Plotting prediction:
+%=================================================================
+%Plot over transformed data
+%-------------------------------
+x = [ min(min(X)):0.1:max(max(X))]; %From first data point to last data point
+x = [ ones( length(x), 1) x']; %Add a column of ones
 
-endfunction
+fprintf("\nPlotting adjusted function ...\n");
+figure (2);
+hold on;
+plot( x(:, 2) , h(x, theta), 'b-');
+hold off;
+
+%Display result
+fprintf("\nTheta for y = theta0 * x^theta1 expression:\nTheta0 = %f, Theta1 = %f\n", theta(1), theta(2));
+
+%Plot over raw data:
+%-------------------------------
+x = [ exp( min(min(X)) ):0.1: exp(max(max(X)))]; %From first data point to last one, undo tranformation
+
+%Transform theta
+theta(1) =  exp( theta(1) );
+theta(2) = -theta(2);
+
+fprintf("\nPlotting adjusted function ...\n");
+figure (1);
+hold on;
+plot( x, theta(1).*x.^(-theta(2)), 'b-');
+hold off;
+
+%Display result
+fprintf("\nTheta for ln y = theta1 * ln x + theta0 expression:\nTheta0 = %f, Theta1 = %f\n", theta(1), theta(2));
+
