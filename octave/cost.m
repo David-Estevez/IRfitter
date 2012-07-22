@@ -2,7 +2,7 @@
 % Cost function
 %=================================================================
 
-function J = cost(X, y,  theta)
+function J = cost(X, y, theta)
 [m n] = size(X);
 
 J = 1 / (2*m) * ( h(X, theta) - y )'*( h(X, theta) - y );

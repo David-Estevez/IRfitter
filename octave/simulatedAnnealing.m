@@ -23,28 +23,43 @@ initialCost = cost( X, y, theta);	% Initial cost of guessed theta
 %========================================================
 temp = T0;
 
+function nextTemp = cooling( T0, Tf, iter, iterations)
+endfunction
 
 %Main loop
 %========================================================
 n = 0;
 while (temp < Tf && n < iterations)
 
+	fprintf( "Iteration: %d\n", n);
+
 	%New random movement:
-	theta = theta + alpha * (0.5*ones(size(theta)) - rand(size(theta));
+	move = alpha * ( 0.5*ones(size(theta)) - rand(size(theta)) );
 
 	%Cost to move to that position:
-	currentCost = cost( X, y, theta);
+	currentCost = cost( X, y, theta+move);
 	costMove= currentCost - initialCost;
 
 	if acceptMovement( costMove, temp)
-				
+		theta += move;
+		initialCost = currentCost;
 	endif
 
 endwhile
 
-function value = acceptMovement( cost, temp)
-
-end function
-
 
 endfunction
+
+% Function to evaluate if a movement is accepted or not depending on the cost of making that
+% movement and the temperature of the system
+% ==========================================================================================
+
+function value = acceptMovement( cost, temp)
+	if ( cost < 0) || ( cost >= 0 && rand(1) < exp( cost / temp ) )
+		value = true;
+	else
+		value = false;
+	endif
+endfunction
+
+

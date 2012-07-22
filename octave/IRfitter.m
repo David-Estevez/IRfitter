@@ -20,11 +20,11 @@ function theta = IRfitter( file , algorithm )
 close all; clc
 
 %%Load data
-fprintf("Loading data... \n");
+fprintf("Loading data... ");
 [X y m] = loadData( file );
 
 %Plot raw data
-fprintf("Plotting data ...\n");
+fprintf("[OK]\nPlotting data ...");
 figure (1);
 plot( X, y, 'rx', 'MarkerSize', 10);
 xlabel('X');
@@ -37,7 +37,7 @@ X=log(X);
 y=log(y);
 
 %Plot transformed data
-fprintf("Plotting data ...\n");
+fprintf("[OK]\nPlotting data ...");
 figure (2);
 plot( X, y, 'rx', 'MarkerSize', 10);
 xlabel('ln X');
@@ -60,6 +60,7 @@ if algorithm == 0
 	iterations = 60000; %number of iterations
 
 	%Apply gradiend descend:
+	fprintf("[OK]\nApplying gradient descend... ");
 	theta = gradientDescend( X, y , theta, alpha, iterations);
 endif
 
@@ -73,6 +74,7 @@ if algorithm == 1
 	iterations = 60000; 	%Number of iterations
 
 	%Apply simulated annealing:
+	fprintf("[OK]\nApplying simulated annealing... ");
 	theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations);
 endif
 
@@ -84,14 +86,14 @@ endif
 x = [ min(min(X)):0.1:max(max(X))]; %From first data point to last data point
 x = [ ones( length(x), 1) x']; %Add a column of ones
 
-fprintf("\nPlotting adjusted function ...\n");
+fprintf("[OK]\nPlotting adjusted function ...");
 figure (2);
 hold on;
 plot( x(:, 2) , h(x, theta), 'b-');
 hold off;
 
 %Display result
-fprintf("\nTheta for y = theta0 * x^theta1 expression:\nTheta0 = %f, Theta1 = %f\n", theta(1), theta(2));
+fprintf("[OK]\n\n-Theta for y = theta0 * x^theta1 expression:\n\tTheta0 = %f\n\tTheta1 = %f\n", theta(1), theta(2));
 
 %Plot over raw data:
 %-------------------------------
@@ -101,12 +103,12 @@ x = [ exp( min(min(X)) ):0.1: exp(max(max(X)))]; %From first data point to last 
 theta(1) =  exp( theta(1) );
 theta(2) = -theta(2);
 
-fprintf("\nPlotting adjusted function ...\n");
+fprintf("\nPlotting adjusted function... ");
 figure (1);
 hold on;
 plot( x, theta(1).*x.^(-theta(2)), 'b-');
 hold off;
 
 %Display result
-fprintf("\nTheta for ln y = theta1 * ln x + theta0 expression:\nTheta0 = %f, Theta1 = %f\n", theta(1), theta(2));
+fprintf("[OK]\n\nTheta for ln y = theta1 * ln x + theta0 expression:\n\tTheta0 = %f\n\tTheta1 = %f\n\n", theta(1), theta(2));
 
