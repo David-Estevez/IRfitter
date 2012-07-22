@@ -63,6 +63,19 @@ if algorithm == 0
 	theta = gradientDescend( X, y , theta, alpha, iterations);
 endif
 
+if algorithm == 1
+	%Simulated annealing algoritm
+	%=========================================================
+	%Parameters:
+	theta = zeros(2,1);	%Initial theta guess
+	T0 = 1000;		%Initial temperature
+	Tf = 25;		%Final temperature
+	iterations = 60000; 	%Number of iterations
+
+	%Apply simulated annealing:
+	theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations);
+endif
+
 
 %Plotting prediction:
 %=================================================================
