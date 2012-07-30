@@ -1,4 +1,7 @@
 #sample data provided by experimental measures
+#Two experiments were runned:
+#
+#First experiment:
 5.00 2.59
 5.00 2.60
 5.00 2.59
@@ -80,6 +83,7 @@
 80.00 0.44
 80.00 0.40
 
+#Second experiment:
 5.00 3.00
 5.00 3.02
 5.00 3.02
