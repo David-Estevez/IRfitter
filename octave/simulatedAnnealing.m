@@ -14,7 +14,7 @@ function theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations)
 %----------------------------
 
 
-alpha = 2;				% Maximum distance of random displacement:
+alpha = 500*2;				% Maximum distance of random displacement:
 m = length(y );				% Number of training examples
 n = length(theta);			% Number of parameters of objective function
 initialCost = cost( X, y, theta);	% Initial cost of guessed theta
@@ -22,9 +22,6 @@ initialCost = cost( X, y, theta);	% Initial cost of guessed theta
 %Define cooling schedule
 %========================================================
 temp = T0;
-
-function nextTemp = cooling( T0, Tf, iter, iterations)
-endfunction
 
 %Main loop
 %========================================================
@@ -55,11 +52,16 @@ endfunction
 % ==========================================================================================
 
 function value = acceptMovement( cost, temp)
-	if ( cost < 0) || ( cost >= 0 && rand(1) < exp( cost / temp ) )
+	if ( cost < 0) || ( cost >= 0 && rand(1) < exp( -cost / temp ) )
 		value = true;
 	else
 		value = false;
 	endif
 endfunction
 
+function nextTemp = cooling( T0, Tf, currentIter, iterations)
 
+	%Linear cooling
+	nextTemp = T0 - ( (T0-Tf) / iterations ) * currentIter;
+
+endfunction
