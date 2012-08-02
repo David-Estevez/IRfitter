@@ -64,4 +64,6 @@ function nextTemp = cooling( T0, Tf, currentIter, iterations)
 	%Linear cooling
 	nextTemp = T0 - ( (T0-Tf) / iterations ) * currentIter;
 
+	%It can also use other cooling expressions
+
 endfunction
