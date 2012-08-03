@@ -8,10 +8,10 @@ Use several algorithms to fit some experimental data obtained with a IR sensor t
 
 0. Index
 ----------------------------------------------------------------------
-	* 1.Introduction
-	* 2.Dependencies 
-	* 3.Algorithms implemented
-	* 4.Usage
+ * 1.Introduction
+ * 2.Dependencies 
+ * 3.Algorithms implemented
+ * 4.Usage
 
 1. Introduction
 ----------------------------------------------------------------------
@@ -30,12 +30,12 @@ info.
 3. Algorithms implemented
 ----------------------------------------------------------------------
 Currently the following algorithms are implemented:
-	* Gradient descend
-	* Simulated Annealing
+ * Gradient descend
+ * Simulated Annealing
 
 Support for the following ones is to be added:
-	* Genetic algorithms
-	* Particle swarm optimization
+ * Genetic algorithms
+ * Particle swarm optimization
 
 4. Usage
 ------------------------------------------------------------------------
@@ -43,10 +43,13 @@ Support for the following ones is to be added:
 
 * Then, you have to be working on the octave directory of the IRfitter software.
 In octave, you change the current directory using the cd command:
+
 `cd yourPath/octave`
 
 * Now you can call the function IRfitter:
+
 `IRfitter( 'pathToData/file.txt' , index);`
+
 Where the first argument is the path to the data file and the second one is a number indicating 
 the chosen algoritm (i.e. 1 for gradient descend, 2 for simulated annealing, etc).
 
