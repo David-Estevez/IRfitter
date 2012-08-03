@@ -69,9 +69,9 @@ if algorithm == 1
 	%=========================================================
 	%Parameters:
 	theta = zeros(2,1);	%Initial theta guess
-	T0 = 1000;		%Initial temperature
-	Tf = 25;		%Final temperature
-	iterations = 60000; 	%Number of iterations
+	T0 = 1500;		%Initial temperature
+	Tf = 0;			%Final temperature
+	iterations = 100000; 	%Number of iterations
 
 	%Apply simulated annealing:
 	fprintf("[OK]\nApplying simulated annealing... ");
