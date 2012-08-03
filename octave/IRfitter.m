@@ -51,7 +51,7 @@ X = [ ones( m, 1) X];
 
 %Algorithm selection:
 %================================================================
-if algorithm == 0
+if algorithm == 1
 	%Gradient Descend algorithm
 	%========================================================
 	%Parameters:
@@ -64,7 +64,7 @@ if algorithm == 0
 	theta = gradientDescend( X, y , theta, alpha, iterations);
 endif
 
-if algorithm == 1
+if algorithm == 2
 	%Simulated annealing algoritm
 	%=========================================================
 	%Parameters:
