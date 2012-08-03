@@ -12,8 +12,7 @@
 % 3 - particle swarm optimization
 %=====================================================================
 
-function theta = IRfitter( file , algorithm )
-
+function theta = IRfitter( file );
 %Prepare system & load data
 %=====================================================================
 %%Clear system
@@ -51,7 +50,12 @@ X = [ ones( m, 1) X];
 
 %Algorithm selection:
 %================================================================
-if algorithm == 0
+
+%Show the menu:
+algorithm = menu( "[OK]\n\nSelect algorithm:", 'Gradient Descend', 'Simulated Annealing');
+
+%Choose algoritm:
+if algorithm == 1
 	%Gradient Descend algorithm
 	%========================================================
 	%Parameters:
@@ -60,11 +64,11 @@ if algorithm == 0
 	iterations = 60000; %number of iterations
 
 	%Apply gradiend descend:
-	fprintf("[OK]\nApplying gradient descend... ");
+	fprintf("\nApplying gradient descend... ");
 	theta = gradientDescend( X, y , theta, alpha, iterations);
 endif
 
-if algorithm == 1
+if algorithm == 2
 	%Simulated annealing algoritm
 	%=========================================================
 	%Parameters:
@@ -74,7 +78,7 @@ if algorithm == 1
 	iterations = 100000; 	%Number of iterations
 
 	%Apply simulated annealing:
-	fprintf("[OK]\nApplying simulated annealing... ");
+	fprintf("\nApplying simulated annealing... ");
 	theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations);
 endif
 
