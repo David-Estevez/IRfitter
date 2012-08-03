@@ -55,6 +55,7 @@ X = [ ones( m, 1) X];
 algorithm = menu( "[OK]\n\nSelect algorithm:", 'Gradient Descend', 'Simulated Annealing');
 
 %Choose algoritm:
+
 if algorithm == 1
 	%Gradient Descend algorithm
 	%========================================================
