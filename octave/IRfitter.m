@@ -52,7 +52,7 @@ X = [ ones( m, 1) X];
 %================================================================
 
 %Show the menu:
-algorithm = menu( "[OK]\n\nSelect algorithm:", 'Gradient Descend', 'Simulated Annealing');
+algorithm = menu( "[OK]\n\nSelect algorithm:", 'Gradient Descend', 'Simulated Annealing', 'Genetic Algorithm');
 
 %Choose algoritm:
 
@@ -70,7 +70,7 @@ if algorithm == 1
 endif
 
 if algorithm == 2
-	%Simulated annealing algoritm
+	%Simulated annealing algorithm
 	%=========================================================
 	%Parameters:
 	theta = zeros(2,1);	%Initial theta guess
@@ -83,6 +83,17 @@ if algorithm == 2
 	theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations);
 endif
 
+if algorithm == 3
+	%Genetic algorithm
+	%=========================================================
+	%Parameters:
+	population = 30;	%Amount of solutions in the population
+	iterations = 50000; 	%Number of iterations
+
+	%Apply genetic algorithm:
+	fprintf("\nApplying genetic algorithm... ");
+	theta = geneticAlgorithm( X, y, population, iterations );
+endif
 
 %Plotting prediction:
 %=================================================================
