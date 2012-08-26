@@ -1,5 +1,5 @@
 %=================================================================
-Simulated annealing algorithm for IR data fitting
+%Simulated annealing algorithm for IR data fitting
 %=================================================================
 
 function theta = simulatedAnnealing( X, y, theta, T0, Tf, iterations)
