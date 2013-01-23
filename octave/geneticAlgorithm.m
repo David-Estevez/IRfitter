@@ -26,16 +26,37 @@ disp(population);
 fitness = zeros( 1, size(population, 2) );
 
 for j=[1:1:size(population, 2)]
+	% Obtain minimization cost:
 	fitness(1,j) = cost( X, y, population( : , j ));
+
+	% Transform it to maximization cost:
+	fitness = 1 ./ ( 1 .+ fitness);
 endfor
 
-disp(fitness);
+disp(fitness); %debug stuff
 
 % Main loop
 for i=[0:1:iterations]
 
-		
+	% Sort population
+	% -------------------------------------------------------------------
+	
+	% Sort by cost
+	[fitness indexes] = sort( fitness );
+	
+	% Store ordered vectors in a new array:
+	new_population = zeros( size( population, 1), size( population, 2) );
+	
+	for i = [1:1:size( population, 2)]
+		new_population( :, i) = population(:, indexes(i));
+	endfor
 
+
+	% Select parents
+	% --------------------------------------------------------------------
+	
+	
+	
 endfor
 
 endfunction

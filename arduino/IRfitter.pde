@@ -1,29 +1,36 @@
 
 
-//-- 
+//-- Some constants and arrays:
+//---------------------------------------------------------------------------------------------
+
+//-- Arrays containing the distances to be measured and the number of repetitions of each distance:
 int dist[] =   { 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,25,30,35,40,50,60,70,80};
 int repeat[] = { 5,5,5,5,5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7};
 
-  int N  = sizeof(dist)/sizeof(int);
-const int MEASURES = 128; //80;
-const int analogPin = A2;
+//-- Number of elements in distance array:
+int N  = sizeof(dist)/sizeof(int);
 
-//-- space for the measures
+//-- Total number of measurements to be done:
+static const int MEASURES = 128; 
+
+//-- Pin connected to the sensor:
+static const int analogPin = A2;
+
+//-- Some space to store the measurements:
 double values[MEASURES][2];
+
+
+
+//-- Setup function
+//-- Turns on the serial port
 
 void setup()
 {
   Serial.begin(9600); 
-  /*
-  int num = 0;
-  for (int i = 0; i< N; i++)
-    num+=repeat[i];
-  
-  Serial.println(num);
-  delay(50000); */
-  
   Serial.println("Ok. Start measuring");
 }
+
+//-- Loop Function:
 
 void loop()
 {
@@ -34,7 +41,7 @@ void loop()
   {
     for(int j = 0; j < repeat[i]; j++)
     { 
-        //-- Output
+        //-- Output the measure that we are performing currently:
         Serial.print( "Measure: ");
         Serial.print( dist[i] );
         Serial.println( "cm");
@@ -48,8 +55,8 @@ void loop()
     }
   }
   
-  //-- Print data
-  Serial.println("Done\nCopy and paste the following data");
+  //-- Once all measurements have been done, print data.
+  Serial.println("Done\nCopy and paste the following data:");
   
   for (int i = 0; i < MEASURES; i++)
   {
@@ -58,6 +65,11 @@ void loop()
      Serial.println( values[i][1] );
    }
 }
+
+//-- Read sensor function:
+//----------------------------------------------
+//-- Waits for user input, when some value is recieved, reads the value
+//-- from the sensor and return that value in volts.
 
 double readSensor()
 {
