@@ -25,12 +25,13 @@ class IRfitterWindow( QtGui.QWidget ):
 		# Create widgets
 		loadButton = QtGui.QPushButton( 'Load data' )
 		#loadButton.resize( loadButton.sizeHint() )
-
+		loadButton.clicked.connect( self.loadFile )
+		
 		quitButton = QtGui.QPushButton( 'Quit')		
 		#quitButton.resize( quitButton.sizeHint() )
 		quitButton.clicked.connect( QtGui.qApp.quit)
 
-		resultLabel = QtGui.QLabel(' This is a test label ')
+		resultLabel = QtGui.QLabel('Equation to fit:<br> y = a x<sup>b</sup><br>a = ??<br>b = ??')
 		#resultLabel.resize( resultLabel.sizeHint() )
 
 		# Create status bar
@@ -57,7 +58,9 @@ class IRfitterWindow( QtGui.QWidget ):
 		self.setWindowTitle( 'IRfitter')
 		self.show()
 
-		
+	def loadFile(self):
+		file_path = QtGui.QFileDialog.getOpenFileName(self, 'Open file', './', '*.txt' )
+		print file_path
 
 def main():
     
