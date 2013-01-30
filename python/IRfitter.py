@@ -1,9 +1,22 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-""" Adjust experimental data to the IR curve """
+"""
+	-------------------------------------------------- 
+	 IR fitter
+	--------------------------------------------------
+
+	 Adjust experimental data to the IR sensor curve. 
+
+	--------------------------------------------------
+	 Author: David Estévez Fernández 
+		( http://github.com/David-Estevez )
+	 Releashed under a GPL license, Jan 2013
+	-------------------------------------------------- 	
+"""
 
 # Loading dependencies:
+#-------------------------------------------------------
 import sys
 
 # Import Qt4
@@ -12,13 +25,17 @@ try:
 except ImportError:
 	print "Error: PyQt4 not installed."
 	exit()
+
 # Import NumPy
 try:
 	import numpy as np	
-
 except ImportError:
 	print "Error: NumPy is not installed"
 	exit()
+
+
+# Main window class
+#-------------------------------------------------------
 
 class IRfitterWindow( QtGui.QMainWindow ):
 	""" Main Window of the IRfitter program """
@@ -149,7 +166,8 @@ def calculate( file_path):
 	print a, b	
 	return a, b
 
-""" Math functions: """
+# Math functions
+# --------------------------------------------------------------------------------------
 def gradientDescend( X, y, theta, alpha, iterations):
 	m = y.size
 	for i in range( 0, iterations):
@@ -165,7 +183,8 @@ def h( X, theta):
 	return np.dot( X, theta)
 	
 
-""" Main function """
+# Main function
+#-----------------------------------------------------------------------------------------
 def main():	
 	app = QtGui.QApplication(sys.argv)
 	win = IRfitterWindow()
